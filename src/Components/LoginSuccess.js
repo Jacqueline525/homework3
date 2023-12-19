@@ -5,8 +5,9 @@ import {
 	Typography,
 	Container,
 	Box,
-} from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import '../styles/LoginSuccess.css'
 
 function LoginSuccess() {
@@ -15,10 +16,14 @@ function LoginSuccess() {
 	// Set showSignOutMsg state to false initially
 	const [showSignOutMsg, setShowSignOutMsg] = useState(false)
 
+	const dispatch = useDispatch();
+	let username = useSelector(state => state.username)
+
 	// function popup after user signing out
 	const handleSignOut = () => {
 		// when function called sets to true
-		setShowSignOutMsg(true)
+		setShowSignOutMsg(true);
+		dispatch({type: 'setUsername', payload: ''})
 	}
 
 	const handleCloseMsg = () => {
@@ -41,6 +46,9 @@ function LoginSuccess() {
 					flexDirection: 'column',
 					alignItems: 'center',
 				}}>
+				<Typography variant='h2' color='green' sx={{ textAlign: 'center' }}>
+					Hey {username}
+				</Typography>
 				<Typography variant='h4' color='green' sx={{ textAlign: 'center' }}>
 					🎊 Congratulations! 🎊 <br /> You've successfully logged in
 				</Typography>

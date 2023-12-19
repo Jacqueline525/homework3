@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
 import '../styles/LoginPage.css'
 
 import {
@@ -21,6 +22,8 @@ function LoginPage() {
 	const [errMsg, setErrMsg] = useState('')
 	// eslint-disable-next-line no-unused-vars
 	const [successMsg, setSuccessMsg] = useState('')
+	
+	const dispatch = useDispatch();
 
 	const handleChange = (event) => {
 		const { name, value } = event.target
@@ -42,6 +45,7 @@ function LoginPage() {
 			setSuccessMsg('Login successful. Redirecting...')
 			setFormData({ username: '', password: '' })
 			navigate('/login-successful')
+			dispatch({type: 'setUsername', payload: formData.username})
 		} else {
 			navigate('/login-failed')
 		}
